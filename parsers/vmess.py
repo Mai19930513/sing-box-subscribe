@@ -23,7 +23,10 @@ def parse(data):
                 'uuid': _path[0].split(":")[-1],
                 'security': _path[0].split(":")[0] if ':' in _path[0] else 'auto',
                 'alter_id': int(netquery.get('alterId','0')),
-                'packet_encoding': 'xudp'
+                'packet_encoding': 'xudp',
+                "tcp_keep_alive": "30s",
+                "tcp_keep_alive_interval": "15s",
+                "disable_tcp_keep_alive": False
             }
             if (netquery.get('tls') and netquery['tls'] != '') or (netquery.get('security') == 'tls'):
                 node['tls']={
@@ -148,3 +151,4 @@ def parse(data):
         if item.get('padding') == True:
             node['multiplex']['padding'] = True
     return node
+
