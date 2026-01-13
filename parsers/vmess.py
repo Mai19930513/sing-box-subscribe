@@ -76,8 +76,8 @@ def parse(data):
         'security': item.get('scy') if item.get('scy') not in ['http', None] else 'auto',
         'alter_id': int(item["aid"] if item.get("aid") else '0'),
         'packet_encoding': 'xudp',
-        "tcp_keep_alive": "30s",
-        "tcp_keep_alive_interval": "15s",
+        "tcp_keep_alive": "5m",
+        "tcp_keep_alive_interval": "40s",
         "disable_tcp_keep_alive": False
     }
     if node['security'] == 'gun':
@@ -151,5 +151,6 @@ def parse(data):
         if item.get('padding') == True:
             node['multiplex']['padding'] = True
     return node
+
 
 
