@@ -23,10 +23,7 @@ def parse(data):
                 'uuid': _path[0].split(":")[-1],
                 'security': _path[0].split(":")[0] if ':' in _path[0] else 'auto',
                 'alter_id': int(netquery.get('alterId','0')),
-                'packet_encoding': 'xudp',
-                "tcp_keep_alive": "30s",
-                "tcp_keep_alive_interval": "15s",
-                "disable_tcp_keep_alive": False
+                'packet_encoding': 'xudp'
             }
             if (netquery.get('tls') and netquery['tls'] != '') or (netquery.get('security') == 'tls'):
                 node['tls']={
@@ -78,7 +75,10 @@ def parse(data):
         'uuid': item.get('id'),
         'security': item.get('scy') if item.get('scy') not in ['http', None] else 'auto',
         'alter_id': int(item["aid"] if item.get("aid") else '0'),
-        'packet_encoding': 'xudp'
+        'packet_encoding': 'xudp',
+        "tcp_keep_alive": "30s",
+        "tcp_keep_alive_interval": "15s",
+        "disable_tcp_keep_alive": False
     }
     if node['security'] == 'gun':
         node['security'] = 'auto'
@@ -151,4 +151,5 @@ def parse(data):
         if item.get('padding') == True:
             node['multiplex']['padding'] = True
     return node
+
 
